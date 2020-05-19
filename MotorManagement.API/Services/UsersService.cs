@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Repositories;
+using Domain.Dtos;
 using Domain.Models;
 
 namespace Services
@@ -15,9 +17,22 @@ namespace Services
             _usersRepository = usersRepository;
         }
 
-        public async Task<IList<User>> GetUsersAsync()
+        public async Task<IList<UserDto>> GetUsersWithRolesAsync()
         {
-            return await _usersRepository.GetUsersAsync();
+            IList<User> dbUsers = await _usersRepository.GetUsersAsync();
+            IList<Role> dbRoles = await _usersRepository.GetRolesAsync();
+            return dbUsers
+                .OrderBy(x => x.Id)
+                .Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Roles = (from userRole in user.UserRoles
+                             join role in dbRoles
+                             on userRole.RoleId
+                             equals role.Id
+                             select role.Name).ToList()
+                }).ToList();
         }
     }
 }

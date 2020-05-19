@@ -9,5 +9,6 @@ namespace DataAccess.Repositories
     public interface IUsersRepository
     {
         Task<IList<User>> GetUsersAsync();
+        Task<IList<Role>> GetRolesAsync();
     }
 }

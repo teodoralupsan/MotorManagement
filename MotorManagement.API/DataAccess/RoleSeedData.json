@@ -1,0 +1,30 @@
+[
+  {
+    "Name": "ProductAdmin",
+    "NormalizedName": "ProductAdmin"
+  },
+  {
+    "Name": "ProductOperator",
+    "NormalizedName": "ProductOperator"
+  },
+  {
+    "Name": "PurchasingAdmin",
+    "NormalizedName": "PurchasingAdmin"
+  },
+  {
+    "Name": "PurchasingOperator",
+    "NormalizedName": "PurchasingOperator"
+  },
+  {
+    "Name": "MDMAdmin",
+    "NormalizedName": "MDMAdmin"
+  },
+  {
+    "Name": "MDMOperator",
+    "NormalizedName": "MDMOperator"
+  },
+  {
+    "Name": "Vendor",
+    "NormalizedName": "Vendor"
+  }
+]

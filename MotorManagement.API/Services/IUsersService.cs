@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Dtos;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Services
 {
     public interface IUsersService
     {
-        Task<IList<User>> GetUsersAsync();
+        Task<IList<UserDto>> GetUsersWithRolesAsync();
     }
 }

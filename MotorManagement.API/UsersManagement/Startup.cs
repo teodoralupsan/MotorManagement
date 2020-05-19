@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccess;
 using DataAccess.Repositories;
+using Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +31,7 @@ namespace UsersManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureIdentityBuilder(ref services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
 
@@ -58,6 +61,16 @@ namespace UsersManagement
             //or you can allow any origin
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
+        }
+
+        private void ConfigureIdentityBuilder(ref IServiceCollection services)
+        {
+            IdentityBuilder builder = services.AddIdentityCore<User>();
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services); //builder.RoleType
+            builder.AddEntityFrameworkStores<DataContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
         }
     }
 }

@@ -18,7 +18,12 @@ namespace DataAccess.Repositories
 
         public async Task<IList<User>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(x => x.UserRoles).ToListAsync();
+        }
+
+        public async Task<IList<Role>> GetRolesAsync()
+        {
+            return await _context.Roles.ToListAsync();
         }
     }
 }

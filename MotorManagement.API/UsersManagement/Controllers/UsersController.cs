@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Models;
-using Microsoft.AspNetCore.Http;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -23,8 +20,8 @@ namespace UsersManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            IList<User> dbUsers = await _usersService.GetUsersAsync();
-            return Ok(dbUsers);
+            IList<UserDto> userList = await _usersService.GetUsersWithRolesAsync();
+            return Ok(userList);
         }
     }
 }
